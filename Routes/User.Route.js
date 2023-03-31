@@ -31,7 +31,8 @@ require("dotenv").config()
             else{
                 const user = new UserModel({first_name,last_name,email, password:hash,gender,mobile,city})
                 await user.save()
-                res.send ({"msg":"New Users has been register"})
+                let regdata=await UserModel.findOne({email:email})
+                res.send ({"msg":"New Users has been register",data:regdata})
             }
          })
     } catch (err) {
@@ -44,10 +45,11 @@ require("dotenv").config()
     try {
           const user = await UserModel.find({email})
           if(user.length>0){
-            bcrypt.compare(password,user[0].password,(err,result)=>{
+            bcrypt.compare(password,user[0].password,async(err,result)=>{
                 if(result){
-                let token = jwt.sign({userID:user[0]._id},process.env.userkey)  
-                res.send({"msg":"Login Successful",token:token})  ;
+                let token = jwt.sign({userID:user[0]._id},process.env.userkey)
+                let regdata=await UserModel.findOne({email:email})  
+                res.send({"msg":"Login Successful",token:token,data:regdata}) ;
                 }else{
                     res.send({"msg":"Wrong Credentials"})
                 }

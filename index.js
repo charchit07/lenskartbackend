@@ -4,6 +4,7 @@ const { connection } = require("./Config/db");
 const { userRouter } = require("./Routes/User.Route");
 const { productRoute } = require("./Routes/Product.Route");
 const { AdminRouter } = require("./Routes/Admin.Route");
+const { paymentrouter } = require("./Routes/payments");
 
 const app = express();
 
@@ -18,7 +19,7 @@ app.use("/users", userRouter);
 
 app.use("/products", productRoute);
 
-
+app.use("/payments",paymentrouter)
 
 app.listen(7500, async () => {
   try {
