@@ -62,27 +62,27 @@ require("dotenv").config()
     }
  })
 
- userRouter.patch('/forgot-password/', async (req, res) => {
-    const { email, password } = req.body
-    const data = await UserModel.find({ email })
-    if (data.length > 0) {
-      try {
-        bcrypt.hash(password, 5, async (err, hash) => {
-          if (err) res.send({ msg: "Something went wrong", error: err.message });
-          else {
-            await UserModel.findOneAndUpdate({ email }, { password:hash })
-            res.status(201).send({ msg: "Password is Updated" })
-           
-          }
-        });
-      } catch (error) {
-        res.send({ msg: "Email is not registered.", error: error.message });
-      }
+ userRouter.patch('/updatedetails', async (req, res) => {
+  const { email, password,first_name,last_name} = req.body
+  const data = await UserModel.find({ email })
+  if (data.length > 0) {
+    try {
+      bcrypt.hash(password, 5, async (err, hash) => {
+        if (err) res.send({ msg: "Something went wrong", error: err.message });
+        else {
+          await UserModel.findOneAndUpdate({ email }, { password:hash,first_name,last_name})
+          res.status(201).send({ msg: "Users details has been Updated" }) 
+        }
+      });
+    } catch (error) {
+      res.send({ msg: "Email is not registered.", error: error.message });
     }
-    else {
-      res.send({ msg: "Email is not registered." })
-    }
-  })
+  }
+  else {
+    res.send({ msg: "Email is not registered." })
+  }
+})
+
 
   userRouter.delete('/delete/', async (req, res) => {
     const { email} = req.body
