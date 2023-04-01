@@ -55,4 +55,3 @@ const ShippingModel = mongoose.model("shipping",shippingSchema)
 
 module.exports={ShippingModel}
 
-first_name,last_name,email,gender,mob,city,postalcode,country,state_province,address_line_1,address_line_2
