@@ -58,7 +58,7 @@ cartRoute.delete("/delete/:id", userAuthenticate, async (req, res) => {
   const _id = req.params.id;
 
   try {
-    await CartModel.findOneAndDelete({ _id });
+    await CartModel.findByIdAndDelete({ _id });
     res.send({ msg: `Product with id:${_id} has been deleted` });
   } catch (e) {
     return res.status(400).send(e.message);
