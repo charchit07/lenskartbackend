@@ -10,7 +10,7 @@ const userAuthenticate = (req, res, next) => {
 
         next();
       } else {
-        req.send({ msg: "Please Login" });
+        res.send({ msg: "Please Login" });
       }
     });
   } else {
