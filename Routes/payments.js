@@ -10,8 +10,8 @@ amt=+amt
     try {
         
         const instance = new Razorpay({
-            key_id:'',
-            key_secret: "",
+            key_id:process.env.keyid,
+            key_secret: process.env.RAZORPAY_KEY,
         });
 
      const options={
